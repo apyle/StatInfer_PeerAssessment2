@@ -36,6 +36,10 @@ library(xtable)
 
 ```
 
+Does delivery method and/or dosage of vitamin C affect tooth growth in guinea pigs? 
+In this paper we will reviews R's 'ToothGrowth' dataset and performs the appropriate 
+analysis to answer this question and identify the method and dosage, if any, that 
+maximizes tooth growth.
 
 ## Data Summary
 
@@ -45,6 +49,13 @@ library(xtable)
 data(ToothGrowth)
 
 ```
+
+The 'ToothGrowth' dataset included in R is the results of giving 60 guinea pigs 
+dosages of vitamin C and measuring the resultant tooth growth. The dosages were 
+0.5, 1.0, and 2.0 milligrams per day and was delivered either via orange juice 
+or asorbic acid. The guinea pigs were separated into six groups of ten and each 
+group was given the vitamin C in the same dosage and delivery method. The results 
+are summarized below.
 
 ```{r datasummary2, fig.height=6, fig.width=8, fig.align='center'}
 
@@ -66,6 +77,8 @@ data(ToothGrowth)
 
 
 ## Appendix
+
+A summary of the tooth growth data can be found at https://stat.ethz.ch/R-manual/R-patched/library/datasets/html/ToothGrowth.html
 
 This analysis was run with the following configuration.
 
