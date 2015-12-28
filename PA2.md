@@ -17,8 +17,7 @@ maximizes tooth growth.
 ```r
 # load the Guinea Pig Tooth Growth data
 data(ToothGrowth)
-tg <- ToothGrowth
-tg <- mutate(tg, doseF = factor(dose), pig = 1:60)
+tg <- mutate(ToothGrowth, doseF = factor(dose), pig = 1:60)
 ```
 
 The 'ToothGrowth' dataset included in R is the results of giving 60 guinea pigs 
@@ -29,11 +28,8 @@ group was given the vitamin C in the same dosage and delivery method.
 
 
 ```r
-#tgmean <- c(mean(ToothGrowth[1:10,1]), mean(ToothGrowth[11:20,1]), mean(ToothGrowth[21:30,1]),
-#            mean(ToothGrowth[31:40,1]), mean(ToothGrowth[41:50,1]), mean(ToothGrowth[51:60,1]))
 gp <- ggplot(tg, aes(x = pig, y = len))
-gp <- gp + geom_point()
-gp <- gp + facet_grid(supp ~ doseF)
+gp <- gp + geom_point() + facet_grid(supp ~ doseF)
 gp <- gp + labs(title = "Figure 1: Guinea Pig Tooth Length by Dosage and Delivery Method", 
                 x = "Dosage", y = "Tooth Length")
 gp
@@ -48,17 +44,65 @@ examine the differences with dosage and delivery method.
 
 ## Analysis
 
+These analysis are based on the following assumptions. First, we are assuming that 
+the data are independent and identically distributed (iid) values. We will also 
+assume that the data distributions are not skewed; reviewing the data in the plot 
+above doesn't suggest that the data is order of magnatudes different where we would 
+want to pursue a logirithmic approach. The analysis also assumes that the variances 
+between the different data groups is equal. 
 
+
+```r
+# Compare the delivery method for 0.5 dosages
+test1 <- subset(tg, doseF %in% (0.5))
+r1 <- t.test(len ~ supp, data=test1, paired=FALSE, var.equal=TRUE)
+```
+
+For our first test, we will see if there is a difference in delivery method at the 
+0.5 mg daily dosage. Based on our test above, we find the p-value of the test is 
+0.0053 which suggests there is high likelihood that the means 
+are different.
+
+
+```r
+# Compare the delivery method for 1 mg dosages
+test2 <- subset(tg, doseF %in% (1))
+r2 <- t.test(len ~ supp, data=test2, paired=FALSE, var.equal=TRUE)
+```
+
+Like the first test, we will see if there is a difference in delivery methods, but 
+at the 1 mg daily dosage. Based on our test above, we find the p-value of the test 
+is 7.8\times 10^{-4} which suggests there is high likelihood that the means 
+are different, even more than at the 0.5 mg dosage. 
+
+
+```r
+# Compare the delivery method for 1 mg dosages
+test3 <- subset(tg, doseF %in% (2))
+r3 <- t.test(len ~ supp, data=test3, paired=FALSE, var.equal=TRUE)
+```
+
+For the third test, we will see if there is a difference in delivery methods at 
+the 2 mg daily dosage. Based on our test above, we find the p-value of the test 
+is 0.96371 which suggests there is high likelihood that the 
+means are the same, meaning that the differences that we saw at the 0.5 mg and 
+1.0 mg dosages no longer applies at the 2.0 mg daily dosage. 
 
 
 ## Conclusion
 
 
 
+Based on the findings above, we can state that the increase in dosage does have 
+an impact on guinea pig tooth growth regardless of delivery method. The analysis 
+also supports the finding that for dosages up to a 2 milligram per day, the orange 
+juice delivery method promotes more tooth growth. At 2 mg/day, however, there is 
+no statistical difference between delivery by orange juice or asorbic acid.
 
 ## Appendix
 
-A summary of the tooth growth data can be found at https://stat.ethz.ch/R-manual/R-patched/library/datasets/html/ToothGrowth.html. See also https://bugs.r-project.org/bugzilla3/show_bug.cgi?id=15953 for additional details on the data set.
+A summary of the tooth growth data can be found at https://stat.ethz.ch/R-manual/R-patched/library/datasets/html/ToothGrowth.html. 
+See also https://bugs.r-project.org/bugzilla3/show_bug.cgi?id=15953 for additional details on the data set.
 
 This analysis was run with the following configuration.
 
@@ -120,29 +164,3 @@ devtools::session_info() # display environment the script was create and run in.
 ##  yaml         2.1.13   2014-06-12 CRAN (R 3.1.0)
 ```
 
-
-Now in the second portion of the class, we're going to analyze the ToothGrowth data in the R datasets package. 
-
-* (DONE) Load the ToothGrowth data and perform some basic exploratory data analyses 
-* (DONE) Provide a basic summary of the data.
-* Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose. (Only use the techniques from class, even if there's other approaches worth considering)
-* State your conclusions and the assumptions needed for your conclusions. 
-
-Some criteria that you will be evaluated on
-
-* Did you perform an exploratory data analysis of at least a single plot or table highlighting basic features of the data?
-* Did the student perform some relevant confidence intervals and/or tests?
-* Were the results of the tests and/or intervals interpreted in the context of the problem correctly? 
-* Did the student describe the assumptions needed for their conclusions?
-
-
-Some helpful ideas:
-
-Given that the assignment asks for hypothesis tests or confidence intervals, think like a researcher and ask yourself some questions:
-
-    is increasing dosage associated with increases in tooth growth?
-    is there any difference in tooth growth when comparing orange juice to Vitamin C tablets? 
-    at a given dosage level, is there any difference in tooth growth when comparing orange juice to Vitamin C tablets?
-    within a supplement type (Vitamin C or orange juice), are there any differences in tooth growth across dosage levels? 
-
-From these questions you can develop a number of specific hypothesis tests, some of which are one-tailed tests, and others that are two-tailed tests. 

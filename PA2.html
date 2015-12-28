@@ -67,14 +67,10 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h2>Data Summary</h2>
 <pre class="r"><code># load the Guinea Pig Tooth Growth data
 data(ToothGrowth)
-tg &lt;- ToothGrowth
-tg &lt;- mutate(tg, doseF = factor(dose), pig = 1:60)</code></pre>
+tg &lt;- mutate(ToothGrowth, doseF = factor(dose), pig = 1:60)</code></pre>
 <p>The ‘ToothGrowth’ dataset included in R is the results of giving 60 guinea pigs dosages of vitamin C and measuring the resultant tooth growth. The dosages were 0.5, 1.0, and 2.0 milligrams per day and was delivered either via orange juice or asorbic acid. The guinea pigs were separated into six groups of ten and each group was given the vitamin C in the same dosage and delivery method.</p>
-<pre class="r"><code>#tgmean &lt;- c(mean(ToothGrowth[1:10,1]), mean(ToothGrowth[11:20,1]), mean(ToothGrowth[21:30,1]),
-#            mean(ToothGrowth[31:40,1]), mean(ToothGrowth[41:50,1]), mean(ToothGrowth[51:60,1]))
-gp &lt;- ggplot(tg, aes(x = pig, y = len))
-gp &lt;- gp + geom_point()
-gp &lt;- gp + facet_grid(supp ~ doseF)
+<pre class="r"><code>gp &lt;- ggplot(tg, aes(x = pig, y = len))
+gp &lt;- gp + geom_point() + facet_grid(supp ~ doseF)
 gp &lt;- gp + labs(title = &quot;Figure 1: Guinea Pig Tooth Length by Dosage and Delivery Method&quot;, 
                 x = &quot;Dosage&quot;, y = &quot;Tooth Length&quot;)
 gp</code></pre>
@@ -83,9 +79,23 @@ gp</code></pre>
 </div>
 <div id="analysis" class="section level2">
 <h2>Analysis</h2>
+<p>These analysis are based on the following assumptions. First, we are assuming that the data are independent and identically distributed (iid) values. We will also assume that the data distributions are not skewed; reviewing the data in the plot above doesn’t suggest that the data is order of magnatudes different where we would want to pursue a logirithmic approach. The analysis also assumes that the variances between the different data groups is equal.</p>
+<pre class="r"><code># Compare the delivery method for 0.5 dosages
+test1 &lt;- subset(tg, doseF %in% (0.5))
+r1 &lt;- t.test(len ~ supp, data=test1, paired=FALSE, var.equal=TRUE)</code></pre>
+<p>For our first test, we will see if there is a difference in delivery method at the 0.5 mg daily dosage. Based on our test above, we find the p-value of the test is 0.0053 which suggests there is high likelihood that the means are different.</p>
+<pre class="r"><code># Compare the delivery method for 1 mg dosages
+test2 &lt;- subset(tg, doseF %in% (1))
+r2 &lt;- t.test(len ~ supp, data=test2, paired=FALSE, var.equal=TRUE)</code></pre>
+<p>Like the first test, we will see if there is a difference in delivery methods, but at the 1 mg daily dosage. Based on our test above, we find the p-value of the test is 7.810^{-4} which suggests there is high likelihood that the means are different, even more than at the 0.5 mg dosage.</p>
+<pre class="r"><code># Compare the delivery method for 1 mg dosages
+test3 &lt;- subset(tg, doseF %in% (2))
+r3 &lt;- t.test(len ~ supp, data=test3, paired=FALSE, var.equal=TRUE)</code></pre>
+<p>For the third test, we will see if there is a difference in delivery methods at the 2 mg daily dosage. Based on our test above, we find the p-value of the test is 0.96371 which suggests there is high likelihood that the means are the same, meaning that the differences that we saw at the 0.5 mg and 1.0 mg dosages no longer applies at the 2.0 mg daily dosage.</p>
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
+<p>Based on the findings above, we can state that the increase in dosage does have an impact on guinea pig tooth growth regardless of delivery method. The analysis also supports the finding that for dosages up to a 2 milligram per day, the orange juice delivery method promotes more tooth growth. At 2 mg/day, however, there is no statistical difference between delivery by orange juice or asorbic acid.</p>
 </div>
 <div id="appendix" class="section level2">
 <h2>Appendix</h2>
@@ -133,27 +143,6 @@ devtools::session_info() # display environment the script was create and run in.
 ##  stringr      0.6.2    2012-12-06 CRAN (R 3.1.0)                    
 ##  XML          3.98-1.1 2013-06-20 CRAN (R 3.1.0)                    
 ##  yaml         2.1.13   2014-06-12 CRAN (R 3.1.0)</code></pre>
-<p>Now in the second portion of the class, we’re going to analyze the ToothGrowth data in the R datasets package.</p>
-<ul>
-<li>(DONE) Load the ToothGrowth data and perform some basic exploratory data analyses</li>
-<li>(DONE) Provide a basic summary of the data.</li>
-<li>Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose. (Only use the techniques from class, even if there’s other approaches worth considering)</li>
-<li>State your conclusions and the assumptions needed for your conclusions.</li>
-</ul>
-<p>Some criteria that you will be evaluated on</p>
-<ul>
-<li>Did you perform an exploratory data analysis of at least a single plot or table highlighting basic features of the data?</li>
-<li>Did the student perform some relevant confidence intervals and/or tests?</li>
-<li>Were the results of the tests and/or intervals interpreted in the context of the problem correctly?</li>
-<li>Did the student describe the assumptions needed for their conclusions?</li>
-</ul>
-<p>Some helpful ideas:</p>
-<p>Given that the assignment asks for hypothesis tests or confidence intervals, think like a researcher and ask yourself some questions:</p>
-<pre><code>is increasing dosage associated with increases in tooth growth?
-is there any difference in tooth growth when comparing orange juice to Vitamin C tablets? 
-at a given dosage level, is there any difference in tooth growth when comparing orange juice to Vitamin C tablets?
-within a supplement type (Vitamin C or orange juice), are there any differences in tooth growth across dosage levels? </code></pre>
-<p>From these questions you can develop a number of specific hypothesis tests, some of which are one-tailed tests, and others that are two-tailed tests.</p>
 </div>
 
 
