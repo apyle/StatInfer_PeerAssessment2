@@ -28,19 +28,21 @@ group was given the vitamin C in the same dosage and delivery method.
 
 
 ```r
-gp <- ggplot(tg, aes(x = pig, y = len))
-gp <- gp + geom_point() + facet_grid(supp ~ doseF)
-gp <- gp + labs(title = "Figure 1: Guinea Pig Tooth Length by Dosage and Delivery Method", 
-                x = "Dosage", y = "Tooth Length")
+gp <- ggplot(tg, aes(x = doseF, y = len, fill = supp))
+gp <- gp + geom_boxplot()
+gp <- gp + facet_grid(. ~ supp)
+gp <- gp + labs(title = "Figure 1: Guinea Pig Tooth Length by Dosage and Delivery Method",
+                x = "Dosage (mg)", y = "Tooth Length (mm)")
+gp <- gp + guides(fill = guide_legend(title = "Supplement Type"))
 gp
 ```
 
 <img src="PA2_files/figure-html/datasummary2-1.png" title="" alt="" style="display: block; margin: auto;" />
 
-Looking at the raw data, we can observe a general trend of increasing tooth length 
-with a dosage increase regardless of delivery method as shown in each row. It is 
-not immediately obvious if the delivery method makes a difference. Below we will 
-examine the differences with dosage and delivery method.
+Looking at the summary data, we can observe a general trend of increasing tooth 
+length with a dosage increase regardless of delivery method as shown in each set 
+of box plots. It is not immediately obvious if the delivery method makes a 
+difference. Below we will examine the differences with dosage and delivery method.
 
 ## Analysis
 
