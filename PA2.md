@@ -61,9 +61,12 @@ r1 <- t.test(len ~ supp, data=test1, paired=FALSE, var.equal=TRUE)
 ```
 
 For our first test, we will see if there is a difference in delivery method at the 
-0.5 mg daily dosage. Based on our test above, we find the p-value of the test is 
-0.0053 which suggests there is high likelihood that the means 
-are different.
+0.5 mg daily dosage. The t-test above tests the null hypothesis, that the means 
+for both delivery methods are the same with a 95% confidence level. In order for us
+to reject the hypothesis in favor of the alternative hypothesis the confidence 
+interval must include the number zero. For this test, the range is 1.77
+to 8.73. Based on these test results, we can say with a 
+high likelihood that the means are different.
 
 
 ```r
