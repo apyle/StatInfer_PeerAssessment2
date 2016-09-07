@@ -66,7 +66,9 @@ for both delivery methods are the same with a 95% confidence level. In order for
 to reject the hypothesis in favor of the alternative hypothesis the confidence 
 interval must include the number zero. For this test, the range is 1.77
 to 8.73. Based on these test results, we can say with a 
-high likelihood that the means are different.
+high likelihood that the means are different which implies the delivery method of
+orange juice has a greater impact on guinea pig tooth length than the asorbic acid
+supplement.
 
 
 ```r
