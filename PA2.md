@@ -65,7 +65,9 @@ For our first test, we will see if there is a difference in delivery method at t
 for both delivery methods are the same with a 95% confidence level. In order for us
 to reject the hypothesis in favor of the alternative hypothesis the confidence 
 interval must include the number zero. For this test, the range is 1.77
-to 8.73. Based on these test results, we can say with a 
+to 8.73. The p.value for t.test tells how unusual it is to
+get a different result given the data and the confidence level. For this test, the 
+p.value is 0.0053. Based on these test results, we can say with a 
 high likelihood that the means are different which implies the delivery method of
 orange juice has a greater impact on guinea pig tooth length than the asorbic acid
 supplement.

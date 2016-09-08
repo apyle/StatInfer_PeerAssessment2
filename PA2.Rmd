@@ -81,7 +81,9 @@ For our first test, we will see if there is a difference in delivery method at t
 for both delivery methods are the same with a 95% confidence level. In order for us
 to reject the hypothesis in favor of the alternative hypothesis the confidence 
 interval must include the number zero. For this test, the range is `r round(r1$conf.int[1], 3)`
-to `r round(r1$conf.int[2], 3)`. Based on these test results, we can say with a 
+to `r round(r1$conf.int[2], 3)`. The p.value for t.test tells how unusual it is to
+get a different result given the data and the confidence level. For this test, the 
+p.value is `r round(r1$p.value, 5)`. Based on these test results, we can say with a 
 high likelihood that the means are different which implies the delivery method of
 orange juice has a greater impact on guinea pig tooth length than the asorbic acid
 supplement.
