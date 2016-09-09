@@ -89,11 +89,11 @@ r1 &lt;- t.test(len ~ supp, data=test1, paired=FALSE, var.equal=TRUE)</code></pr
 <pre class="r"><code># Compare the delivery method for 1 mg dosages
 test2 &lt;- subset(tg, doseF %in% (1))
 r2 &lt;- t.test(len ~ supp, data=test2, paired=FALSE, var.equal=TRUE)</code></pre>
-<p>Like the first test, we will see if there is a difference in delivery methods, but at the 1 mg daily dosage. Based on our test above, we find the p-value of the test is 7.810^{-4} which suggests there is high likelihood that the means are different, even more than at the 0.5 mg dosage.</p>
+<p>Like the first test, we will see if there is a difference in delivery methods, but at the 1 mg daily dosage. Based on our test above, we find the at the 95% confidence level that the range is 2.841 to 9.019 with a p-value of 7.810^{-4}. These suggest there is high likelihood that the means are different, even more than at the 0.5 mg dosage.</p>
 <pre class="r"><code># Compare the delivery method for 1 mg dosages
 test3 &lt;- subset(tg, doseF %in% (2))
 r3 &lt;- t.test(len ~ supp, data=test3, paired=FALSE, var.equal=TRUE)</code></pre>
-<p>For the third test, we will see if there is a difference in delivery methods at the 2 mg daily dosage. Based on our test above, we find the p-value of the test is 0.96371 which suggests there is high likelihood that the means are the same, meaning that the differences that we saw at the 0.5 mg and 1.0 mg dosages no longer applies at the 2.0 mg daily dosage.</p>
+<p>For the third test, we will see if there is a difference in delivery methods at the 2 mg daily dosage. Based on our test above, we find the 95% confidence interval is -3.723 to 3.563 and the test’s p-value is 0.96371. Because the confidence interval includes the value zero and the p-value is very close to one, this suggests there is high likelihood that the means are the same, meaning that the differences that we saw at the 0.5 mg and 1.0 mg dosages no longer applies at the 2.0 mg daily dosage.</p>
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>

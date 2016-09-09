@@ -80,9 +80,10 @@ r2 <- t.test(len ~ supp, data=test2, paired=FALSE, var.equal=TRUE)
 ```
 
 Like the first test, we will see if there is a difference in delivery methods, but 
-at the 1 mg daily dosage. Based on our test above, we find the p-value of the test 
-is 7.8\times 10^{-4} which suggests there is high likelihood that the means 
-are different, even more than at the 0.5 mg dosage. 
+at the 1 mg daily dosage. Based on our test above, we find the at the 95% confidence
+level that the range is 2.841 to 9.019
+with a p-value of 7.8\times 10^{-4}. These suggest there is high likelihood 
+that the means are different, even more than at the 0.5 mg dosage. 
 
 
 ```r
@@ -92,11 +93,12 @@ r3 <- t.test(len ~ supp, data=test3, paired=FALSE, var.equal=TRUE)
 ```
 
 For the third test, we will see if there is a difference in delivery methods at 
-the 2 mg daily dosage. Based on our test above, we find the p-value of the test 
-is 0.96371 which suggests there is high likelihood that the 
-means are the same, meaning that the differences that we saw at the 0.5 mg and 
-1.0 mg dosages no longer applies at the 2.0 mg daily dosage. 
-
+the 2 mg daily dosage. Based on our test above, we find the 95% confidence interval
+is -3.723 to 3.563 and the test's 
+p-value is 0.96371. Because the confidence interval includes the 
+value zero and the p-value is very close to one, this suggests there is high 
+likelihood that the means are the same, meaning that the differences that we saw 
+at the 0.5 mg and 1.0 mg dosages no longer applies at the 2.0 mg daily dosage. 
 
 ## Conclusion
 
